@@ -1,0 +1,126 @@
+<section class="py-5 bg-main-light w-75 mx-auto shadow-lg rounded p-2 my-4">
+  <h2 class="text-main">Register Now</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="sendRegisterData()">
+    <div class="my-3">
+      <label for="name">Name</label>
+      <input
+        class="form-control"
+        type="text"
+        name="name"
+        id="name"
+        formControlName="name"
+      />
+      @if (registerForm.get('name')?.errors &&
+      (registerForm.get('name')?.touched || registerForm.get('name')?.dirty )) {
+      <div class="alert alert-danger small shadow p-0 m-0">
+        @if (registerForm.get('name')?.getError('required')) {
+        <p class="m-0 py-1">- Name is required</p>
+        } @else if (registerForm.get('name')?.getError('minlength')) {
+        <p class="m-0 py-1">- Name Should be more than or equal 3 chars</p>
+        } @else if (registerForm.get('name')?.getError('maxlength')) {
+        <p class="m-0 py-1">- Name Should be less than or equal 20 chars</p>
+        }
+      </div>
+      }
+    </div>
+    <div class="my-3">
+      <label for="email">Email</label>
+      <input
+        class="form-control"
+        type="email"
+        name="email"
+        id="email"
+        formControlName="email"
+      />
+
+      @if (registerForm.get('email')?.errors &&
+      (registerForm.get('email')?.touched || registerForm.get('email')?.dirty ))
+      {
+      <div class="alert alert-danger small shadow p-0 m-0">
+        @if (registerForm.get('email')?.getError('required')) {
+        <p class="m-0 py-1">- Email is required</p>
+        } @else if (registerForm.get('email')?.getError('email')) {
+        <p class="m-0 py-1">- Enter Valid Email</p>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="my-3">
+      <label for="password">Password</label>
+      <input
+        class="form-control"
+        type="password"
+        name="password"
+        id="password"
+        formControlName="password"
+      />
+
+      @if (registerForm.get('password')?.errors &&
+      (registerForm.get('password')?.touched ||
+      registerForm.get('password')?.dirty )) {
+      <div class="alert alert-danger small shadow p-0 m-0">
+        @if (registerForm.get('password')?.getError('required')) {
+        <p class="m-0 py-1">- Password is required</p>
+        } @else if (registerForm.get('password')?.getError('pattern')) {
+        <p class="m-0 py-1">- Password must be at least 6 chars</p>
+        }
+      </div>
+      }
+    </div>
+    <div class="my-3">
+      <label for="age">Age</label>
+      <input
+        class="form-control"
+        type="number"
+        name="age"
+        id="age"
+        formControlName="age"
+      />
+
+      @if (registerForm.get('age')?.errors && (registerForm.get('age')?.touched
+      || registerForm.get('age')?.dirty )) {
+      <div class="alert alert-danger small shadow p-0 m-0">
+        @if (registerForm.get('age')?.getError('required')) {
+        <p class="m-0 py-1">- Age is required</p>
+        } @else if (registerForm.get('age')?.getError('pattern')) {
+        <p class="m-0 py-1">- Age Should be more than 18 years old</p>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="my-3">
+      <label for="phone">Phone</label>
+      <input
+        class="form-control"
+        type="tel"
+        name="phone"
+        id="phone"
+        formControlName="phone"
+      />
+
+      @if (registerForm.get('phone')?.errors &&
+      (registerForm.get('phone')?.touched || registerForm.get('phone')?.dirty ))
+      {
+      <div class="alert alert-danger small shadow p-0 m-0">
+        @if (registerForm.get('phone')?.getError('required')) {
+        <p class="m-0 py-1">- Phone is required</p>
+        } @else if (registerForm.get('phone')?.getError('pattern')) {
+        <p class="m-0 py-1">- Phone Should be Egyptian phone number</p>
+        }
+      </div>
+      }
+    </div>
+
+    <button
+      [disabled]="registerForm.invalid || isLoading"
+      type="submit"
+      class="btn-main d-block ms-auto"
+    >
+      Register @if (isLoading) {
+      <i class="fas fa-spinner fa-spin"></i>
+      }
+    </button>
+  </form>
+</section>

@@ -1,0 +1,157 @@
+<div class="container d-flex justify-content-center p-3">
+  <button
+    type="button"
+    class="btn-main"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+    data-bs-whatever="@mdo"
+  >
+    Add Note
+  </button>
+</div>
+
+<div class="container py-4">
+  <input
+    class="form-control w-50 mx-auto mb-4"
+    type="search"
+    placeholder="search..."
+    [(ngModel)]="searchNote"
+  />
+
+  <div class="row g-4">
+    @for (note of notesData | search: searchNote ; track note._id) {
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ note.title }}</h5>
+          <p class="card-text">{{ note.content }}</p>
+
+          <button
+            type="button"
+            class="btn btn-warning mx-2"
+            data-bs-toggle="modal"
+            data-bs-target="#updateModel"
+            data-bs-whatever="@mdo"
+            (click)="SetUpdateNote(note, note._id)"
+          >
+            Update
+          </button>
+
+          <button
+            (click)="deleteNote(note._id)"
+            class="card-link btn btn-danger"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New Note</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="noteForm" (ngSubmit)="addDataNotes()">
+          <div class="mb-3">
+            <label for="title" class="col-form-label">Title:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              formControlName="title"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="content" class="col-form-label">Content:</label>
+            <input
+              formControlName="content"
+              class="form-control"
+              id="content"
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn-main">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="updateModel"
+  tabindex="-1"
+  aria-labelledby="updateModelLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="updateModelLabel">New Note</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="updateNoteForm" (ngSubmit)="updateNote()">
+          <div class="mb-3">
+            <label for="title" class="col-form-label">Title:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              formControlName="title"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="content" class="col-form-label">Content:</label>
+            <input
+              formControlName="content"
+              class="form-control"
+              id="content"
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-warning">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
